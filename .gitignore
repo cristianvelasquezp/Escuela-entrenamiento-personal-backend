@@ -1,0 +1,6 @@
+node_modules
+.idea
+.eslintrc.json
+.prettierrc
+.DS_Store
+config.env
