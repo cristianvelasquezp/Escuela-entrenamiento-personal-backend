@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
-const videoSchema = new mongoose.Schema({
+const workoutSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'A video must have a name']
+    required: [true, 'A video must have a name'],
+    unique: true
   },
   hardness: {
     type: String,
@@ -21,4 +22,6 @@ const videoSchema = new mongoose.Schema({
   }
 });
 
-module.exports = videoSchema;
+const Workout = mongoose.model('Workout', workoutSchema);
+
+module.exports = Workout;
