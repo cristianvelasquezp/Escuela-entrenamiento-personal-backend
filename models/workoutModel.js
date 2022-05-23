@@ -17,6 +17,9 @@ const workoutSchema = new mongoose.Schema({
   thumbnail: {
     type: String
   },
+  thumbnail2x: {
+    type: String
+  },
   category: {
     type: String
   }

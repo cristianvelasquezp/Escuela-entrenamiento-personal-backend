@@ -8,4 +8,10 @@ router
   .get(workoutController.getAllWorkout)
   .post(workoutController.createWorkout);
 
+router
+  .route('/:id')
+  .get(workoutController.getWorkout)
+  .patch(workoutController.updateWorkout)
+  .delete(workoutController.deleteWorkout);
+
 module.exports = router;
