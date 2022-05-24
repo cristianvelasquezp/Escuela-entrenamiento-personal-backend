@@ -8,7 +8,12 @@ const categorySchema = new mongoose.Schema({
   },
   thumbnail: {
     type: String
+  },
+  thumbnail2x: {
+    type: String
   }
 });
 
-module.exports = categorySchema;
+const Category = mongoose.model('Category', categorySchema);
+
+module.exports = Category;

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/cristianvelasquezp/Escuela-entrenamiento-personal-backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "mongoose": "^5.13.14"
