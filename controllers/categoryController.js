@@ -55,3 +55,23 @@ exports.updateCategory = async (req, res) => {
     });
   }
 };
+
+exports.getCategoriesHome = async (req, res) => {
+  try {
+    const query = Category.find({ inHome: true });
+
+    const categories = await query;
+
+    res.status(200).json({
+      status: 'success',
+      data: {
+        categories
+      }
+    });
+  } catch (err) {
+    res.status(404).json({
+      status: 'fail',
+      message: err
+    });
+  }
+};

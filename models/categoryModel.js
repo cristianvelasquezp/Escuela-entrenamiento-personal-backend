@@ -13,6 +13,21 @@ const categorySchema = new mongoose.Schema({
   },
   thumbnail2x: {
     type: String
+  },
+  icon: {
+    type: String
+  },
+  Position: {
+    type: Number
+  },
+  inHome: {
+    type: Boolean,
+    default: false
+  },
+  createAt: {
+    type: Date,
+    default: Date.now(),
+    select: false
   }
 });
 

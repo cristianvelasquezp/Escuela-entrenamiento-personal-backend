@@ -22,6 +22,12 @@ const workoutSchema = new mongoose.Schema({
   },
   category: {
     type: String
+  },
+  categorySlug: {
+    type: String
+  },
+  categoryId: {
+    type: String
   }
 });
 

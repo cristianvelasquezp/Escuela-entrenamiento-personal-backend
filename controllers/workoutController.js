@@ -2,7 +2,31 @@ const Workout = require('./../models/workoutModel');
 
 exports.getAllWorkout = async (req, res) => {
   try {
-    const query = Workout.find();
+    const queryObj = { ...req.query };
+    const excludeFields = ['page', 'sort', 'limit'];
+    excludeFields.forEach(el => delete queryObj[el]);
+
+    let queryStr = JSON.stringify(queryObj);
+    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, match => `$${match}`);
+    let query = Workout.find(JSON.parse(queryStr));
+
+    if (req.query.sort) {
+      query = query.sort(req.query.sort);
+    } else {
+      query = query.sort('-createAT');
+    }
+
+    //Pagination
+    const page = req.query.page * 1 || 1;
+    const limit = req.query.limit * 1 || 10;
+    const skip = (page - 1) * limit;
+
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const numWorkout = await Workout.countDocuments();
+      if (skip >= numWorkout) throw new Error('This page does no exist');
+    }
 
     const workouts = await query;
 
