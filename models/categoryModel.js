@@ -28,6 +28,9 @@ const categorySchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
     select: false
+  },
+  videoUrl: {
+    type: String
   }
 });
 
