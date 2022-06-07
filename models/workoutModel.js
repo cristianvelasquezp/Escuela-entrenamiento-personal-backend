@@ -28,6 +28,9 @@ const workoutSchema = new mongoose.Schema({
   },
   categoryId: {
     type: String
+  },
+  videoUrl: {
+    type: String
   }
 });
 
