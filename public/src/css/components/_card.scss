@@ -5,7 +5,7 @@
     width: calc( 100% + var(--padding-container) * 2);
     margin-left: calc(var(--padding-container) * -1);
     padding: 0 var(--padding-container);
-    overflow: scroll;
+    overflow-x: auto;
   }
 
   &::-webkit-scrollbar {

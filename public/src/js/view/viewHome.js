@@ -10,6 +10,17 @@ class ViewHome extends View {
         ['hashchange', 'load'].forEach( ev => window.addEventListener(ev, handler));
     }
 
+    addHandlerClick(handler) {
+        this._parentElement.addEventListener('click', function (e) {
+            e.preventDefault();
+            const clicked = e.target.closest('.card__link');
+
+            if(!clicked) return
+
+            handler(clicked.dataset.id, clicked.dataset.type, clicked.dataset.category);
+        })
+    }
+
     _generateMarkup(){
         return `
             <section class="workout-sections">
@@ -25,10 +36,12 @@ class ViewHome extends View {
     }
 
     _generateCategories() {
-
+        const categories = this._data.workout.categories.filter(category => { if (category.inHome === true) return category })
         let html = "";
 
-        this._data.video.categories.forEach( (category, index, categories) => {
+        categories.forEach( (category, index, categories) => {
+
+            category.type = "category";
 
             if ( index === 0 ) {
                 html += `<div class="card-group">`;
@@ -54,7 +67,7 @@ class ViewHome extends View {
     _generateDayWorkout() {
         return `
             <div class="card-group mb-big">
-                ${this._data.video.lastVideos.map(category => ViewCard.render(category, false)).join('')}
+                ${this._data.workout.videos.map(category => ViewCard.render(category, false)).join('')}
             </div>
         `
     }

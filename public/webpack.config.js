@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-    mode: "development",
+    mode: "production",
     entry: ['babel-polyfill', "./src/index.js"],
     output: {
         filename: "main.[contenthash].js",
@@ -59,7 +59,7 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(jpe?g|png|gif|svg|webp)$/i,
+                test: /\.(jpe?g|png|gif|svg|webp|mp4)$/i,
                 type: 'asset/resource'
             },
             {

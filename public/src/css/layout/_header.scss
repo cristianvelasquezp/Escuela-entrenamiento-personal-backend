@@ -1,18 +1,21 @@
 .header {
-  background-image: linear-gradient( to right, rgba(0,0,0, 0.8) 0%,
-                                               rgba(0,0,0, 0) 40%,
-                                               rgba(0,0,0, 0) 100%),
-                                      url("../img/cover.jpg");
-  height: 40rem;
-  background-position: top center;
-  background-size: cover;
-  background-repeat: no-repeat;
   max-width: 136rem;
   margin: 0 auto;
 
   &__container {
     position: relative;
     height: 100%;
+  }
+
+  &__home {
+    background-image: linear-gradient( to right, rgba(0,0,0, 0.8) 0%,
+            rgba(0,0,0, 0) 40%,
+            rgba(0,0,0, 0) 100%),
+    url("../img/cover.jpg");
+    height: 40rem;
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 
   &__menu {
@@ -38,4 +41,13 @@
     max-width: 50rem;
   }
 
+  &__categories {
+    display: flex;
+    margin-top: 4rem;
+    overflow-x: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
 }

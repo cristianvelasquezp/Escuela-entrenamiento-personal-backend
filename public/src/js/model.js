@@ -1,44 +1,85 @@
-import { images, getJSON } from './helpers.js';
+import { API_URL } from './config.js';
+import { images, getJSON, getDate } from "./helpers.js";
 
 export const state = {
-  video: {
-    lastVideos: [
-      {
-        name: 'Booty & Abs',
-        hardness: 'Intermedio',
-        date: 'Domingo 27 de febreo',
-        image: images['image1.jpg']
-      },
-      {
-        name: 'Hipopresivos dinámicos',
-        hardness: 'Intermedio',
-        date: 'Domingo 27 de febreo',
-        image: images['image2.jpg']
-      },
-      {
-        name: 'Yoga',
-        hardness: 'Intermedio',
-        date: 'Domingo 27 de febreo',
-        image: images['image3.jpg']
-      }
-    ],
-    categories: [
-      { name: 'Boxeo', image: images['image4.jpg'] },
-      { name: 'Gym', image: images['image5.jpg'] },
-      { name: 'Dance', image: images['image6.jpg'] },
-      { name: 'Running', image: images['image7.jpg'] },
-      { name: 'Karate', image: images['image8.jpg'] },
-      { name: 'MMA', image: images['image9.jpg'] }
-    ]
-  }
+    workout : {
+        page:'home',
+        videos:[],
+        categories:[],
+        currentCategory: ''
+    },
+}
+
+export const loadWorkoutsVideo = async function() {
+    try {
+        const data = await getJSON(`${API_URL}workout/?limit=3`);
+        state.workout.videos = data.data.workouts.map( workout => {
+            return {
+                id: workout._id,
+                name: workout.name,
+                hardness: workout.hardness,
+                date: getDate(workout.date),
+                thumbnail: workout.thumbnail,
+                thumbnail2x: workout.thumbnail2x,
+                category: workout.category
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
 };
 
-export const getWorkouts = async function() {
-  try {
-    const data = await getJSON('http://127.0.0.1:3000/api/v1/workout/');
-    console.log(data);
-  } catch (err) {
-    console.log(err);
-    throw err;
-  }
-};
+export const loadWorkoutCategories = async function () {
+    try {
+        const data = await getJSON(`${API_URL}category/`);
+        state.workout.categories = data.data.categories.map( category => {
+            return {
+                id: category._id,
+                name: category.name,
+                thumbnail: category.thumbnail,
+                thumbnail2x: category.thumbnail2x,
+                slug: category.slug,
+                position: category.Position,
+                icon: category.icon,
+                inHome: category.inHome
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+export const loadVideosByCategory = async function(categoryId) {
+    try {
+        let data;
+        if (categoryId === undefined) {
+            data = await getJSON(`${API_URL}workout/`);
+        }else {
+            data = await getJSON(`${API_URL}workout/?categoryId=${categoryId}`);
+        }
+        state.workout.videos = data.data.workouts.map( workout => {
+            return {
+                id: workout._id,
+                name: workout.name,
+                hardness: workout.hardness,
+                date: getDate(workout.date),
+                thumbnail: workout.thumbnail,
+                thumbnail2x: workout.thumbnail2x,
+                category: workout.category
+            }
+        })
+    } catch (err) {
+        console.log(err);
+        throw err;
+    }
+}
+
+export const setPage = function (page) {
+    state.workout.page = page;
+}
+
+export const setCurrentCategory = function (category) {
+    state.workout.currentCategory = category;
+}
